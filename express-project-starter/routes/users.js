@@ -4,6 +4,7 @@ const { User } = require("../db/models");
 const { check, validationResult } = require("express-validator");
 const { asyncHandler, csrfProtection } = require("./utils");
 const bcrypt = require("bcryptjs");
+const { loginUser, logoutUser } = require("../auth");
 
 const userValidators = [
   //TODO Need to set up user validators.
@@ -20,15 +21,13 @@ const userValidators = [
     .isEmail()
     .withMessage("Email Address is not a valid email")
     .custom((value) => {
-      return db.User.findOne({ where: { email: value } }).then(
-        (user) => {
-          if (user) {
-            return Promise.reject(
-              "The provided Email Address is already in use by another account"
-            );
-          }
+      return User.findOne({ where: { email: value } }).then((user) => {
+        if (user) {
+          return Promise.reject(
+            "The provided Email Address is already in use by another account"
+          );
         }
-      );
+      });
     }),
   check("bio")
     .exists({ checkFalsy: false })
@@ -102,7 +101,7 @@ router.post(
 router.get("/login", csrfProtection, (req, res) => {
   res.render("user-login", {
     title: "User Login",
-    csrfToken: req.csrfToken()
+    csrfToken: req.csrfToken(),
   });
 });
 
@@ -115,47 +114,51 @@ const loginValidators = [
     .isEmail()
     .withMessage("Email Address is not a valid email")
     .custom((value) => {
-      return db.User.findOne({ where: { email: value } }).then(
-        (user) => {
-          if (!user) {
-            return Promise.reject(
-              "This email address doesn't exist"
-            );
-          }
+      return User.findOne({ where: { email: value } }).then((user) => {
+        if (!user) {
+          return Promise.reject("This email address doesn't exist");
         }
-      );
+      });
     }),
   check("password")
     .exists({ checkFalsy: true })
     .withMessage("Please provide a value for Password"),
 ];
 
-router.post("/login", csrfProtection, loginValidators, asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-  let errors = [];
-  const validatorErrors = validationResult(req);
-  if (validatorErrors.isEmpty()) {
-    const user = await User.findOne({
-      where: { email }
-    });
-    if (user) {
-      const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
-      if (passwordMatch) {
-        loginUser(req, res, user);
-        // TODO persist user data from page to page?
-        res.redirect("/");
+router.post(
+  "/login",
+  csrfProtection,
+  loginValidators,
+  asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    let errors = [];
+    const validatorErrors = validationResult(req);
+    if (validatorErrors.isEmpty()) {
+      const user = await User.findOne({
+        where: { email },
+      });
+      if (user) {
+        const passwordMatch = await bcrypt.compare(
+          password,
+          user.hashedPassword.toString()
+        );
+        if (passwordMatch) {
+          loginUser(req, res, user);
+          // TODO persist user data from page to page?
+          return res.redirect("/");
+        }
       }
+      errors.push("Login failed for email and password"); // for security
+    } else {
+      errors = validatorErrors.array().map((error) => error.msg);
     }
-    errors.push("Login failed for email and password"); // for security
-  } else {
-    errors = validatorErrors.array().map((error) => error.msg);
-  }
-  res.render("user-login", {
-    title: "User Login",
-    email,
-    errors,
-    csrfToken: req.csrfToken()
-  });
-}));
+    res.render("user-login", {
+      title: "User Login",
+      email,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
+  })
+);
 
 module.exports = router;
