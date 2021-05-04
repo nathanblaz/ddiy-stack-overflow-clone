@@ -31,6 +31,7 @@ const restoreUser = async (req, res, next) => {
 
 const logoutUser = (req, res) => {
   delete req.session.auth;
+  res.redirect("/users/login")
 };
 
 const requireAuth = (req, res, next) => {
