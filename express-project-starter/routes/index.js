@@ -4,7 +4,7 @@ const { requireAuth } = require("../auth");
 
 /* GET home page. */
 router.get("/", function (req, res) {
-  res.render("index", { title: "a/A Express Skeleton Home" });
+  res.render("index", { title: "DDIY Overflow" });
 });
 
 router.get("/testingAuth", requireAuth, (req, res) => {

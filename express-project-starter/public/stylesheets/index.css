@@ -1,3 +1,74 @@
+/*
+background1 - #EBEBEB
+background2 - #FDF0D5
+textColor dark - #03110D
+another gray - #77777E
+stand out color 1- #507255 
+standout color 2 - #
+clicked link - #00FFCD
+hover link - #5c5c5c
+untouched link - #77777E
+hover clicked touched link - #00cca3
+
+
+
+
+*/
+
 h1 {
-    color: #555555;
+  color: #507255;
+}
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: larger;
+  color: #03110d;
+  background-color: #ebebeb;
+  padding: 0;
+  margin: 0;
+}
+nav {
+  display: grid;
+  grid-template-areas: "logo search nav profile";
+  background-color: #fdf0d5;
+  grid-template-columns: 1fr 2fr 5fr 2fr;
+  height: fit-content;
+  align-items: center;
+}
+.btn#ask {
+  color: white;
+  background-color: black;
+}
+.btn#demo {
+  color: white;
+  background-color: black;
+}
+.nav-container {
+  display: flex;
+  align-items: center;
+  grid-area: "nav";
+  justify-content: space-around;
+}
+.nav-container div {
+  width: 1fr;
+}
+.logo-container {
+  grid-area: "logo";
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.search-container {
+  grid-area: "search";
+  display: flex;
+  flex-wrap: nowrap;
+  height: 75%;
+  align-items: center;
+}
+.title-container {
+  color: red;
+}
+.user-container {
+}
+.welcome-message {
+}
+.img-container {
 }
