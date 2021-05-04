@@ -3,8 +3,12 @@ var router = express.Router();
 const { requireAuth } = require("../auth");
 
 /* GET home page. */
-router.get("/", requireAuth, function (req, res) {
-  res.render("index", { title: "a/A Express Skeleton Home" });
+router.get("/", function (req, res) {
+  res.render("index", { title: "DDIY Overflow" });
+});
+
+router.get("/testingAuth", requireAuth, (req, res) => {
+  res.send("You are logged in buddy");
 });
 
 module.exports = router;
