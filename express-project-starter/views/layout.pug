@@ -3,28 +3,21 @@ html
   head
       block head
         title="Express Starter App"
-        link(rel='stylesheet' href='/stylesheets/reset.css')
+        link(rel='stylesheet' href='/stylesheets/index.css')
   body
     nav
       .logo-container
-        div replace with img tag and src
+        div DDIY Overflow
         a(href="/")
-      .title-container
-        div DDIY Overflow (replace with wordart?);
       form.search-container(action=`/questions/:filter` method="post")
         input(type="text" name="filter" placeholder="Looking for something?")
-        input(type='submit') Search
+        input(type='submit' value='search')
       .nav-container
-        div
-          a(href="/questions") Ask A Question
-        div
-          a(href="/about") About
-        div
-          a(href="/users/login") Login
-        div
-          a(href="/users/register") Register
-        div
-          a(href="/demo") Demo
+          div(onclick="location.href='/questions'") Ask?
+          div(onclick=`location.href='/about'`) About
+          div(onclick=`location.href='/users/login'`) Login
+          div(onclick=`location.href='/users/register'`) Register
+          div(onclick=`location.href='/demo'`) Demo
     if (user)
       .user-container
         .wecome-message Welcome #{user.name}!
