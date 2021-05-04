@@ -5,4 +5,30 @@ html
         title="Express Starter App"
         link(rel='stylesheet' href='/stylesheets/reset.css')
   body
+    nav
+      .logo-container
+        div replace with img tag and src
+        a(href="/")
+      .title-container
+        div DDIY Overflow (replace with wordart?);
+      form.search-container(action=`/questions/:filter` method="post")
+        input(type="text" name="filter" placeholder="Looking for something?")
+        input(type='submit') Search
+      .nav-container
+        div
+          a(href="/questions") Ask A Question
+        div
+          a(href="/about") About
+        div
+          a(href="/users/login") Login
+        div
+          a(href="/users/register") Register
+        div
+          a(href="/demo") Demo
+    if (user)
+      .user-container
+        .wecome-message Welcome #{user.name}!
+        .img-container
+          div TODO add image of user.
+
     block content
