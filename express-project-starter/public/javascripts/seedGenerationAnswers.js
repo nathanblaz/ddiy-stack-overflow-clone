@@ -17,8 +17,8 @@ const seed = async () => {
       ownerId,
       questionId,
       content: "",
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date().toISOString().split("T")[0],
+      updatedAt: new Date().toISOString().split("T")[0],
     };
     answers.push(obj);
   }
