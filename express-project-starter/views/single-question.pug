@@ -1,0 +1,14 @@
+
+extends index
+include utils.pug
+
+block content
+   div(class='alert-errors')
+      +validationErrorSummary(errors)
+   div(class='full-container')
+      div(class='question-body-container')
+         div(class='single-question-header-container')
+            h1(class="title")= title
+            div(class='asked')
+               h2(class='single-question-created') Asked: #{question.updatedAt}
+               h2(class='single-question-user') User: #{question.User.name}
