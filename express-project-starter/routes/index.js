@@ -4,9 +4,14 @@ const { requireAuth } = require("../auth");
 const db = require("../db/models");
 /* GET home page. */
 router.get("/", async (req, res) => {
-  const questions = await db.Question.findAll({ limit: 10 });
-  console.log(questions);
-  // res.send(questions);
+  const filter = req.body.filter;
+  if (!filter) {
+    filter = {
+      order: [["updatedAt", "DESC"]],
+      limit: 10,
+    };
+  }
+  const questions = await db.Question.findAll(filter);
   res.render("index", { title: "DDIY Overflow", questions });
 });
 
