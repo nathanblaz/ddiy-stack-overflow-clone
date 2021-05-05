@@ -11,7 +11,7 @@ block content
     h1= title
     p Welcome to your Project Skeleton
   .index-container
-    .index-topbar 
+    .index-topbar--container
       .sorted-display
         span#filter Newest Questions
       .sorted-filter 
@@ -21,8 +21,10 @@ block content
           option(value="Most Answers") Most Answers
           option(value="No Answers") No Answers
           option(value="--more options--") --more options--
-    .index-question--container 
-      .index-question--info 
-        .index-question--answers 3 Answers
-        .index-question--votes 99 Votes
-      .index-quesiton--content This is where our content will go
+    .index-body--container
+      each question in questions
+        .index-question--container 
+          .index-question--info 
+            .index-question--answers 3 Answers
+            .index-question--votes 99 Votes
+          .index-quesiton--content=question.title
