@@ -27,4 +27,6 @@ block content
           .index-question--info 
             .index-question--answers 3 Answers
             .index-question--votes 99 Votes
-          .index-quesiton--content=question.title
+          .index-quesiton--content
+            span=question.title 
+            span#index-question--time=question.updatedAt
