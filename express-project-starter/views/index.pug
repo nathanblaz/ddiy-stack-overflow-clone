@@ -10,3 +10,19 @@ block content
   .title-container
     h1= title
     p Welcome to your Project Skeleton
+  .index-container
+    .index-topbar 
+      .sorted-display
+        span#filter Newest Questions
+      .sorted-filter 
+        select
+          option(value="Newest") Newest
+          option(value="Oldest") Oldest
+          option(value="Most Answers") Most Answers
+          option(value="No Answers") No Answers
+          option(value="--more options--") --more options--
+    .index-question--container 
+      .index-question--info 
+        .index-question--answers 3 Answers
+        .index-question--votes 99 Votes
+      .index-quesiton--content This is where our content will go
