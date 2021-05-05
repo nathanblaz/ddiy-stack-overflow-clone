@@ -845,7 +845,6 @@ module.exports = {
         },
         {
           answer:
-
             "Bacon ipsum dolor amet brisket prosciutto bacon shoulder.  Short ribs salami chicken, drumstick porchetta prosciutto strip steak buffalo sirloin shoulder bacon pastrami.  Beef ribs ham boudin kielbasa drumstick jowl spare ribs pork chop biltong burgdoggen sausage.  T-bone capicola turkey, porchetta sirloin leberkas tail pork.  Short loin pastrami shank chislic landjaeger turkey doner ham shankle flank buffalo.",
           ownerId: 4,
           questionId: 5,
