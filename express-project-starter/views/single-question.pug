@@ -3,12 +3,27 @@ extends index
 include utils.pug
 
 block content
-   div(class='alert-errors')
-      +validationErrorSummary(errors)
-   div(class='full-container')
-      div(class='question-body-container')
-         div(class='single-question-header-container')
-            h1(class="title")= title
-            div(class='asked')
-               h2(class='single-question-created') Asked: #{question.updatedAt}
-               h2(class='single-question-user') User: #{question.User.name}
+    link(rel='stylesheet' href='/stylesheets/single-question.css')
+    div(class='alert-errors')
+        +validationErrorSummary(errors)
+        div(class='full-container')
+        div(class='question-body-container')
+            div(class='single-question-header-container')
+                h1(class="title")= title
+                div(class='asked')
+                    div(class='asked-container')
+                        h7(class='single-question-created') Asked: #{question.updatedAt}
+                    div(class='user-container')
+                        h7(class='single-question-user') User: #{question.User.name}
+                div 
+                    p #{question.query}
+                if(isUserLoggedIn)
+                    form(action= `/questions/${question.id}/delete` method= "post")
+                        input(type="hidden" name= "question" value=question.id)
+                        button(type="submit") Delete
+                    if (question.id)
+                        form(action= `/questions/${question.id}/edit` method= "get")
+                            button(type="submit" class='button-submit-question') Edit
+
+
+                
