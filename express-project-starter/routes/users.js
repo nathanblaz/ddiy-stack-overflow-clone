@@ -5,6 +5,7 @@ const { check, validationResult } = require("express-validator");
 const { asyncHandler, csrfProtection } = require("./utils");
 const bcrypt = require("bcryptjs");
 const { loginUser, logoutUser } = require("../auth");
+const { db } = require("../config");
 
 const userValidators = [
   //TODO Need to set up user validators.
@@ -165,5 +166,43 @@ router.get('/logout', (req, res) => {
   logoutUser(req, res);
   // res.redirect('/login')
 })
+
+router.get(
+  "/:id(\\d+)",
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const user = await User.findByPk(userId);
+
+    res.render("user-profile", {
+      title: "User Profile",
+      user,
+      csrfToken: req.csrfToken(),
+    });
+  }
+));
+
+// router.put(
+//   "/:id(\\d+)",
+//   csrfProtection,
+//   asyncHandler(async (req, res) => {
+//     const userId = parseInt(req.params.id, 10);
+//     const userToUpdate = await db.User.findByPk(userId);
+
+//     const { name, email, bio, hashedPassword, avatar } = req.body;
+
+//     const user = {
+//       name,
+//       email,
+//       bio,
+//       hashedPassword,
+//       avatar
+//     }
+
+//     const validatorErrors = validationResult(req);
+
+
+//   });
+// );
 
 module.exports = router;
