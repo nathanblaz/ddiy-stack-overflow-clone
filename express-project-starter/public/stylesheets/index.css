@@ -3,7 +3,7 @@ background1 - #EBEBEB
 background2 - #FDF0D5
 textColor dark - #03110D
 another gray - #77777E
-stand out color 1- #507255 
+stand out color 1- #507255
 standout color 2 - #
 clicked link - #00FFCD
 hover link - #5c5c5c
@@ -34,14 +34,7 @@ nav {
   height: fit-content;
   align-items: center;
 }
-.btn#ask {
-  color: white;
-  background-color: black;
-}
-.btn#demo {
-  color: white;
-  background-color: black;
-}
+
 .nav-container {
   display: flex;
   align-items: center;
@@ -63,12 +56,72 @@ nav {
   height: 75%;
   align-items: center;
 }
+.search-container input::placeholder {
+  color: #77777E;
+  background-color: #EBEBEB;
+}
+.search-submit {
+  background-color: #507255;
+  color: white;
+}
+
 .title-container {
   color: red;
 }
 .user-container {
+
+}
+.user-container img{
+  height: 75%;
 }
 .welcome-message {
 }
 .img-container {
+}
+.index-container {
+  margin: 25px;
+  padding: 25px;
+}
+.index-topbar--container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 10px solid #507255;
+}
+.sorted-display {
+}
+
+.sorted-filter {
+}
+.index-body--container {
+  background-color: #fdf0d5;
+  box-shadow: 5px -5px 5px 0px #bcc6c0;
+}
+
+.index-question--container {
+  display: flex;
+  justify-content: flex-start;
+  margin: 15px;
+  padding: 15px;
+}
+.index-question--info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 5px solid #507255;
+  border-radius: 20px 0px 0px 20px;
+}
+.index-question--answers {
+  font-size: small;
+
+  height: 2.5rem;
+}
+.index-question--votes {
+  font-size: small;
+  height: 2.5rem;
+}
+.index-quesiton--content {
+  height: 5rem;
+  border: 5px solid #507255;
+  border-radius: 0px 20px 20px 0px;
+  align-self: center;
 }

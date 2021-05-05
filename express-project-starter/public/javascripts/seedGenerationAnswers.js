@@ -3,8 +3,8 @@ const fetch = require("node-fetch");
 const seed = async () => {
   let answers = [];
   for (let i = 0; i < 100; i++) {
-    let ownerId = Math.floor(Math.random() * 10);
-    let questionId = Math.floor(Math.random() * 10);
+    let ownerId = Math.floor(Math.random() * 10) + 1;
+    let questionId = Math.floor(Math.random() * 10) + 1;
     const x = await fetch(
       "https://baconipsum.com/api/?type=all-meat&paras=2&start-with-lorem=1"
     );
