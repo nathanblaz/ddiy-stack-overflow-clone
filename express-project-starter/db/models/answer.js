@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     "Answer",
     {
       answer: { type: DataTypes.TEXT, allowNull: false },
-      ownerId: { type: DataTypes.INTEGER, allowNull: false },
+      ownerId: { type: DataTypes.INTEGER, allowNull: false},
       questionId: { type: DataTypes.INTEGER, allowNull: false },
       content: DataTypes.TEXT,
     },
