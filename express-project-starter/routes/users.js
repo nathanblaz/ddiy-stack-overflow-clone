@@ -182,27 +182,47 @@ router.get(
   }
 ));
 
-// router.put(
-//   "/:id(\\d+)",
-//   csrfProtection,
-//   asyncHandler(async (req, res) => {
-//     const userId = parseInt(req.params.id, 10);
-//     const userToUpdate = await db.User.findByPk(userId);
+router.get(
+  "/edit/:id(\\d+)",
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const userId = parseInt(req.params.id, 10);
+    const user = await User.findByPk(userId);
 
-//     const { name, email, bio, hashedPassword, avatar } = req.body;
+    res.render("user-edit-profile", {
+      title: "Edit User Profile",
+      user,
+      csrfToken: req.csrfToken(),
+    });
+  }
+));
 
-//     const user = {
-//       name,
-//       email,
-//       bio,
-//       hashedPassword,
-//       avatar
-//     }
+router.put(
+  "/edit/:id(\\d+)",
+  csrfProtection,
+  userValidators,
+  asyncHandler(async (req, res) => {
+    const { name, email, bio, password, avatar } = req.body;
+    const user = User.build({ name, email, bio, avatar });
+    const validatorErrors = validationResult(req);
 
-//     const validatorErrors = validationResult(req);
-
-
-//   });
-// );
+    if (validatorErrors.isEmpty()) {
+      //TODO hash password.
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.hashedPassword = hashedPassword;
+      await user.save();
+      loginUser(req, res, user);
+      res.redirect("/");
+    } else {
+      const errors = validatorErrors.array().map((error) => error.msg);
+      res.render("user-register", {
+        title: "User Register",
+        user,
+        errors,
+        csrfToken: req.csrfToken(),
+      });
+    }
+  })
+);
 
 module.exports = router;
