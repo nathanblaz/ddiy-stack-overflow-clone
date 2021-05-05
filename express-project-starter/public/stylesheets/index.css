@@ -23,16 +23,20 @@ body {
   font-size: larger;
   color: #03110d;
   background-color: #ebebeb;
-  padding: 0;
-  margin: 0;
 }
 nav {
   display: grid;
   grid-template-areas: "logo search nav profile";
   background-color: #fdf0d5;
   grid-template-columns: 1fr 2fr 5fr 2fr;
-  height: fit-content;
   align-items: center;
+  position: fixed;
+  padding: 2px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  box-shadow: 0rem 5px 5px #77777E;
+  margin: none;
 }
 
 .nav-container {
