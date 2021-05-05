@@ -3,7 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const db = require('../db/models')
-const { User, Question, Answer } = db
+const { User, Question, Answer, Vote } = db
 const { csrfProtection, asyncHandler } = require('./utils');
 const { loginUser, logoutUser, requireAuth } = require('../auth');
 
@@ -11,7 +11,7 @@ const questionValidators = [
     check('title')
         .exists({ checkFalsy: true })
         .withMessage('Please provide a value for the question title')
-        .isLength({ max: 100 })
+        .isLength({ max: 150 })
         .withMessage('Title must not be more than 50 characters long'),
     check('query')
         .exists({ checkFalsy: true })
@@ -35,7 +35,6 @@ router.post('/questions', csrfProtection, questionValidators , asyncHandler(asyn
 
     if (validatorErrors.isEmpty()) {
         await question.save();
-        console.log(question)
         res.redirect(`/questions/${question.id}`)
     }
     const errors = validatorErrors.array().map((error) => error.msg);
@@ -58,10 +57,12 @@ router.get('/questions/:id(\\d+)', csrfProtection, asyncHandler(async (req, res)
         where: {
             questionId: question.id
         },
-        include: [User]
+        include: [User, Vote]
     });
 
     const isUserLoggedIn = (req.session.auth.userId === question.ownerId) ? true : false
+    const isOwner = (req.session.auth.userId === question.ownerId) ? true : false
+
 
 
     res.render('single-question', {
@@ -69,6 +70,7 @@ router.get('/questions/:id(\\d+)', csrfProtection, asyncHandler(async (req, res)
         answers,
         question,
         isUserLoggedIn,
+        isOwner,
         csrfToken: req.csrfToken(),
     });
 }));
